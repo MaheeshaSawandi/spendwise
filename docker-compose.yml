@@ -1,0 +1,32 @@
+# Starts MySQL + the API with one command:  docker compose up --build
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: spendwise
+      MYSQL_USER: spendwise
+      MYSQL_PASSWORD: spendwise
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uspendwise", "-pspendwise"]
+      interval: 5s
+      retries: 20
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: mysql+pymysql://spendwise:spendwise@db:3306/spendwise
+      SECRET_KEY: local-dev-secret-change-me
+      FRONTEND_ORIGINS: http://localhost:5173
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
