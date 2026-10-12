@@ -2,7 +2,7 @@
 
 A full-stack web app for tracking income and expenses, setting monthly budgets, and seeing where your money goes.
 
-**Live demo:** _add your Render link here_ · **API docs:** _your-api-url_/docs
+**Live demo:** https://spendwise-web-kbqi.onrender.com · **API docs:** https://spendwise-api-s6ch.onrender.com/docs
 
 ![Dashboard](docs/screenshot-dashboard.png)
 
